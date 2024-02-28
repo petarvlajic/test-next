@@ -1,4 +1,4 @@
-import type { InferGetStaticPropsType, NextPage } from "next";
+import type { NextPage } from "next";
 
 type Repo = {
   name: string;
@@ -9,16 +9,21 @@ export async function generateStaticParams() {
   const posts = [
     {
       id: 1,
-      slug: "product1",
+      slug: ["product1"],
     },
     {
       id: 2,
-      slug: "product2",
+      slug: ["product2"],
+    },
+    {
+      id: 3,
+      slug: ["product", "test2"],
     },
   ];
+  console.log("ee");
 
   return posts.map((post) => ({
-    slug: post.slug,
+    name: post.slug,
   }));
 }
 
@@ -28,7 +33,7 @@ interface Props {
 
 const Page: NextPage<Props> = ({ params }) => {
   const { name } = params;
-
+  console.log(name);
   return (
     <div>
       <h2>{`${name}`}</h2>
